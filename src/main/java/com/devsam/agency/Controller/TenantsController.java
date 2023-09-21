@@ -20,11 +20,11 @@ public class TenantsController {
     public Tenants save(@RequestBody Tenants tenant){
         return tenantService.save(tenant);
     }
-    @RequestMapping("{id}")
+    @GetMapping("by-id{id}")
     public Tenants findbyId(@PathVariable Long id){
         return tenantService.findById(id);
     }
-    @RequestMapping("{firstname}")
+    @GetMapping("/first-name/{firstname}")
     public Tenants findbyfirstname(@PathVariable String firstname){
         return tenantService.findByfirstname(firstname);
     }
