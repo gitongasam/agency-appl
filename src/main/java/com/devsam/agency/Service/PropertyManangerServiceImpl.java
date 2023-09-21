@@ -10,6 +10,7 @@ import java.util.List;
 @Service
 public class PropertyManangerServiceImpl implements PropertyManagerService{
 
+
     @Autowired
     private PropertyManagerRepository propertyManagerRepository;
 
@@ -19,8 +20,10 @@ public class PropertyManangerServiceImpl implements PropertyManagerService{
 
     @Override
     public PropertyManager save(PropertyManager propertyManager) {
+
         return propertyManagerRepository.save(propertyManager);
     }
+
 
     @Override
     public List<PropertyManager> getAll() {

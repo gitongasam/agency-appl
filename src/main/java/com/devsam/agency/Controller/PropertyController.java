@@ -17,7 +17,7 @@ public class PropertyController {
     public Property save(@RequestBody Property property){
         return propertyService.save(property);
     }
-    @GetMapping("{id}")
+    @GetMapping("/{id}")
     public Property findbyId(@PathVariable Long id){
         return propertyService.findById(id);
     }

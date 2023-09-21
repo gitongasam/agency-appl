@@ -19,17 +19,18 @@ public class PropertyManagerController {
     public PropertyManager save(@RequestBody PropertyManager propertyManager){
         return propertyManagerService.save(propertyManager);
     }
-    @RequestMapping("/all")
+    @GetMapping("/all")
     public List<PropertyManager> getAll(){
         return propertyManagerService.getAll();
     }
 
-    @RequestMapping("{id}")
+    @GetMapping("/id/{id}")
     public PropertyManager findbyId(@PathVariable Long id){
         return propertyManagerService.findById(id);
     }
-    @RequestMapping("{firstname}")
-    public PropertyManager findbyfirstname(@PathVariable String firstname){
+
+    @GetMapping("/firstname/{firstname}")
+    public PropertyManager findbyfirstname(@PathVariable("firstname") String firstname) {
         return propertyManagerService.findByfirstname(firstname);
     }
 

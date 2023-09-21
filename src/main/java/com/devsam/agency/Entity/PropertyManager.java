@@ -1,12 +1,11 @@
 package com.devsam.agency.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.Set;
 
 @Entity
 @AllArgsConstructor
@@ -21,4 +20,12 @@ public class PropertyManager {
     private String email;
     private Long telephoneNumber;
     private String idNumber;
+    @OneToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    })
+    private Set<Property> properties ;
+
+
+
 }
