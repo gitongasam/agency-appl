@@ -1,5 +1,7 @@
 package com.devsam.agency.Controller;
+import com.devsam.agency.Config.JWTGenerator;
 import com.devsam.agency.DTO.LoginDto;
+import com.devsam.agency.Entity.AuthResponseDTO;
 import com.devsam.agency.Entity.PropertyManager;
 import com.devsam.agency.Service.PropertyManagerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/manager")
 public class PropertyManagerController {
+    @Autowired
+    private JWTGenerator jwtGenerator;
     @Autowired
     PasswordEncoder passwordEncoder;
     @Autowired
@@ -45,12 +49,14 @@ public class PropertyManagerController {
     }
 
     @PostMapping("/signin")
-    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto){
+    public ResponseEntity<String> authenticateUser(@RequestBody LoginDto loginDto) {
         Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
-                loginDto.getEmail(),loginDto.getIdNumber()));
+                loginDto.getEmail(), loginDto.getIdNumber()));
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        return new ResponseEntity<>("User signed-in successfully!.", HttpStatus.OK);
-    }
+        String token = jwtGenerator.generateToken(authentication);
 
+        // Specify String as the type argument for ResponseEntity
+        return new ResponseEntity<>(new AuthResponseDTO(token).toString(), HttpStatus.OK);
+    }
 }
