@@ -1,5 +1,6 @@
 package com.devsam.agency.Config;
 
+import org.apache.catalina.filters.CorsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,6 +17,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsUtils;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import static org.springframework.transaction.TransactionDefinition.withDefaults;
 
@@ -68,6 +72,7 @@ public class SecurityConfig {
                                 .requestMatchers(HttpMethod.GET, "/manager/**").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/manager/signin/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/manager/save/**").permitAll()
+                                .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()
                 )
                 .httpBasic(Customizer.withDefaults());
         http.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
@@ -76,6 +81,7 @@ public class SecurityConfig {
 
         return http.build();
     }
+
     @Bean
     public JWTAuthenticationFilter jwtAuthenticationFilter(){
         return new JWTAuthenticationFilter();

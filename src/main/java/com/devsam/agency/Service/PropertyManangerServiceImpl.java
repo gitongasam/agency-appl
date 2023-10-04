@@ -28,13 +28,10 @@ public class PropertyManangerServiceImpl implements PropertyManagerService{
     }
 
     public PropertyManager save(PropertyManager propertyManager) {
-        Optional<Role> roleOptional = Optional.ofNullable(roleRepository.findByName("USER"));
+        Optional<Role> roleOptional = Optional.ofNullable(roleRepository.findByName("ROLE_USER"));
 
         String encodedIdNumber = passswordencoder.encode(propertyManager.getIdNumber());
         propertyManager.setIdNumber(encodedIdNumber);
-
-
-        // Set the encoded IdNumber in the PropertyManager object
         propertyManager.setIdNumber(encodedIdNumber);
         if (roleOptional.isPresent()) {
             Role role = roleOptional.get();

@@ -13,6 +13,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 
 import java.util.List;
 
@@ -55,8 +57,6 @@ public class PropertyManagerController {
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String token = jwtGenerator.generateToken(authentication);
-
-        // Specify String as the type argument for ResponseEntity
         return new ResponseEntity<>(new AuthResponseDTO(token).toString(), HttpStatus.OK);
     }
 }
