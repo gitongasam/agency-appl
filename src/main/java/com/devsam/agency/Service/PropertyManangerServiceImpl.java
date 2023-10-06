@@ -57,4 +57,18 @@ public class PropertyManangerServiceImpl implements PropertyManagerService{
     public PropertyManager findByfirstname(String firstname) {
         return propertyManagerRepository.findByFirstname(firstname);
     }
+    @Override
+    public PropertyManager update(PropertyManager propertyManager) {
+        // Find the existing property manager by ID
+        Optional<PropertyManager> existingPropertyManagerOptional = propertyManagerRepository.findById(propertyManager.getId());
+
+        if (existingPropertyManagerOptional.isPresent()) {
+            PropertyManager existingPropertyManager = existingPropertyManagerOptional.get();
+            existingPropertyManager.setProperties(propertyManager.getProperties()); // You can update properties if needed
+            return propertyManagerRepository.save(existingPropertyManager);
+        } else {
+            // Handle the case where the property manager with the given ID doesn't exist
+            throw new RuntimeException("Property Manager not found with ID: " + propertyManager.getId());
+        }
+    }
 }

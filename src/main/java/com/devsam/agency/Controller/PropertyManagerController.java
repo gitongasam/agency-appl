@@ -13,7 +13,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
 
 
 import java.util.List;
@@ -59,4 +58,17 @@ public class PropertyManagerController {
         String token = jwtGenerator.generateToken(authentication);
         return new ResponseEntity<>(new AuthResponseDTO(token).toString(), HttpStatus.OK);
     }
+    @PutMapping("/update/{id}")
+    public ResponseEntity<String> updatePropertyManager(@PathVariable Long id, @RequestBody PropertyManager updatedPropertyManager) {
+        PropertyManager existingPropertyManager = propertyManagerService.findById(id);
+        if (existingPropertyManager == null) {
+            return new ResponseEntity<>("Property Manager not found", HttpStatus.NOT_FOUND);
+        }
+
+        // You can update the properties of the existing property manager with the data from updatedPropertyManager here.
+
+        PropertyManager updatedManager = propertyManagerService.save(updatedPropertyManager);
+        return new ResponseEntity<>("Property Manager updated successfully", HttpStatus.OK);
+    }
+
 }

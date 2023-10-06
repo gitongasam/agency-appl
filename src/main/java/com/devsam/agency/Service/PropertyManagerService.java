@@ -12,4 +12,6 @@ public interface PropertyManagerService {
     PropertyManager findById(Long id);
 
     PropertyManager findByfirstname(String firstname);
+    PropertyManager update(PropertyManager propertyManager); // Add this method
+
 }

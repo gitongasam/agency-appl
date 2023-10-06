@@ -70,6 +70,8 @@ public class SecurityConfig {
                 .authorizeHttpRequests((authorize) ->
                         authorize
                                 .requestMatchers(HttpMethod.GET, "/manager/**").authenticated()
+                                .requestMatchers(HttpMethod.POST, "/property/add/**").authenticated()
+                                .requestMatchers(HttpMethod.PUT, "/manager/**").authenticated()
                                 .requestMatchers(HttpMethod.POST, "/manager/signin/**").permitAll()
                                 .requestMatchers(HttpMethod.POST, "/manager/save/**").permitAll()
                                 .requestMatchers(CorsUtils::isPreFlightRequest).permitAll()

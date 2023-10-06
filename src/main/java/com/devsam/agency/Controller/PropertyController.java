@@ -1,13 +1,6 @@
 package com.devsam.agency.Controller;
-
-import com.devsam.agency.DTO.LoginDto;
 import com.devsam.agency.Entity.Property;
 import com.devsam.agency.Service.PropertyService;
-import org.apache.catalina.Authenticator;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,7 +12,7 @@ public class PropertyController {
         this.propertyService = propertyService;
     }
 
-    @PostMapping("/save")
+    @PostMapping("/add")
     public Property save(@RequestBody Property property){
         return propertyService.save(property);
     }
